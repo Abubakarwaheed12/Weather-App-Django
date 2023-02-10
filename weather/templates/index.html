@@ -1,29 +1,49 @@
 {% load static %}
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+  <title>Weather App | abubakar.dev</title>
+  <link rel="icon" type="image/png" href="https://enessahin.dev/images/eneslogo.ico">
+  <meta charset="UTF-8">
+  <!-- Google fonts cdn -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:wght@300;500;600&display=swap">
+  <!-- css -->
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+
 </head>
+
 <body>
-    <section class="top-banner">
-        <div class="container">
-          <h1 class="heading">Simple Weather App</h1>
-          <form>
-            <input type="text" placeholder="Search for a city" autofocus>
-            <button type="submit">SUBMIT</button>
-            <span class="msg"></span>
-          </form>
-        </div>
-      </section>
-      <section class="ajax-section">
-        <div class="container">
-          <ul class="cities"></ul>
-        </div>
-      </section>
-      
+    <h2 style="font-size: 60px; color:beige; text-align:center; padding:10px 0px;">What's The Weather Like?</h2>
+  <div class="wrapper">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="container">
+      <div class="search-container">
+        <form action="" method="post" style="display: flex;">
+            {% csrf_token %}
+        <input type="text"  placeholder="Search" id="city" name="city" value="Muridkey" />
+        <!-- <button type="Submit" >Search</button> -->
+        <input type="submit" style="background-color: green;" id="search-btn" value="Search">
+    </form>
+      </div>
+      <div id="result">
+
+      </div>
+    
+    </div>
+  </div>
+  <div class="card">
+
+    <h2>{{city_weather.city}}</h2>
+    <h1>{{city_weather.temprature}}</h1>
+    <p>{{city_weather.description}}</p>
+    <img src="http://openweathermap.org/img/w/{{ weather_city.icon }}.png" alt="">
+ 
+</div>
+
+ 
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
+
 </html>
