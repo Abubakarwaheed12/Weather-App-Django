@@ -1,48 +1,80 @@
-{% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Weather App | abubakar.dev</title>
-  <link rel="icon" type="image/png" href="https://enessahin.dev/images/eneslogo.ico">
-  <meta charset="UTF-8">
-  <!-- Google fonts cdn -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:wght@300;500;600&display=swap">
-  <!-- css -->
-  <link rel="stylesheet" href="{% static 'style.css' %}">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>What's the weather like?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
 </head>
-
 <body>
-    <h2 style="font-size: 60px; color:beige; text-align:center; padding:10px 0px;">What's The Weather Like?</h2>
-  <div class="wrapper">
-    <div class="shape shape-1"></div>
-    <div class="shape shape-2"></div>
-    <div class="container">
-      <div class="search-container">
-        <form action="" method="post" style="display: flex;">
-            {% csrf_token %}
-        <input type="text"  placeholder="Search" id="city" name="city" value="Muridkey" />
-        <!-- <button type="Submit" >Search</button> -->
-        <input type="submit" style="background-color: green;" id="search-btn" value="Search">
-    </form>
-      </div>
-      <div id="result">
-
-      </div>
-
-    </div>
-
-    <div class="card">
-    <h2>{{city_weather.city}}</h2>
-    <h1>{{city_weather.temprature}}</h1>
-    <p>{{city_weather.description}}</p>
-    <img src="http://openweathermap.org/img/w/{{ weather_city.icon }}.png" alt="">
- 
-</div>
-
- 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <section class="hero is-success">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Today's Weather Update !!
+                </h1>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                <!-- {{ form.name }} -->
+                                <input type="text" name="city" >
+                            </div>
+                            <div class="control">
+                                <button class="button is-info">
+                                    Search City
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% if city_weather %}
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-left">
+                                <figure class="image is-50x50">
+                                    <img src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png" alt="Image">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <span class="title">{{city_weather.city}}</span>
+                                        <br>
+                                        <span class="subtitle">{{city_weather.temprature}}°F</span>
+                                        <br> 
+                                        {{city_weather.description}}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% else %}
+    <center>
+      <h2 class="alert alert-danger mt-3 text-center">Search City</h2>
+    </center>
+    {% endif %}
+    <footer class="footer">
+    </footer>
 </body>
-
 </html>
